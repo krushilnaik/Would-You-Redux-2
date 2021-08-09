@@ -1,0 +1,28 @@
+{
+	"name": "nextjs-tailwindcss-typescript-starter",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "node server.js",
+		"build": "next build",
+		"start": "next start",
+		"format": "prettier --write \"{,!(node_modules)/**/}*.(ts|tsx|mjs|js|jsx|json|jsonc|css|scss|html)\""
+	},
+	"dependencies": {
+		"@reduxjs/toolkit": "^1.6.1",
+		"next": "10.2.3",
+		"react": "17.0.2",
+		"react-dom": "17.0.2",
+		"react-redux": "^7.2.4"
+	},
+	"devDependencies": {
+		"@types/node": "^15.12.2",
+		"@types/react": "^17.0.11",
+		"autoprefixer": "^10.2.6",
+		"postcss": "^8.3.1",
+		"postcss-import": "^14.0.2",
+		"prettier": "^2.3.2",
+		"tailwindcss": "^2.1.4",
+		"typescript": "^4.3.2"
+	}
+}

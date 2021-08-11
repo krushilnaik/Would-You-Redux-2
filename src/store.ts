@@ -1,30 +1,5 @@
 import { createSlice, combineReducers, configureStore } from '@reduxjs/toolkit';
-
-// interface Answer {
-// 	/** ID of the user that subbmitted this answer */
-// 	answererID: Number;
-// 	/** The user's choice */
-// 	choice: Number;
-// }
-
-// interface Question {
-// 	/** Unique identifier for a question, helps with querying */
-// 	questionID: Number;
-// 	/** the first option */
-// 	choiceA: String;
-// 	/** the second option */
-// 	choiceB: String;
-// 	/** the ID of the user that asked this */
-// 	askerID: Number;
-// 	/** a list of {@link Answer} objects */
-// 	answers: Answer[];
-// }
-
-// interface User {
-// 	userID: Number;
-// 	userName: String;
-// 	userAvatar: String;
-// }
+import { createLogger } from 'redux-logger';
 
 const questionSlice = createSlice({
 	name: 'questions',
@@ -33,17 +8,29 @@ const questionSlice = createSlice({
 			questionID: 0,
 			choiceA: 'eat a scorpion',
 			choiceB: 'confess to your crush',
+			askerID: 0,
 			answers: []
 		}
 	],
 	reducers: {
 		addQuestion: (state, action) => state.concat([{ ...action.payload, answers: [] }]),
+		answerQuestion: (state, action) => {
+			const { questionID, choice, answererID } = action.payload;
+
+			state.forEach(question => {
+				if (question.questionID === questionID) {
+					question.answers.push({ choice, answererID });
+				}
+			});
+
+			return state;
+		},
 		deleteQuestion: (state, action) =>
 			state.filter(question => question.questionID !== action.payload)
 	}
 });
 
-export const { addQuestion, deleteQuestion } = questionSlice.actions;
+export const { addQuestion, deleteQuestion, answerQuestion } = questionSlice.actions;
 
 const userSlice = createSlice({
 	name: 'users',
@@ -68,5 +55,6 @@ const reducer = combineReducers({
 });
 
 export const store = configureStore({
-	reducer
+	reducer,
+	middleware: [createLogger()]
 });

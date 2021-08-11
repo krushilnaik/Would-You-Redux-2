@@ -2,6 +2,11 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+// this is only for debugging the rendered DOM
+// * {
+// 	border: dashed 1px red;
+// }
+
 #__next {
 	width: 100vw;
 	height: 100vh;
@@ -9,21 +14,24 @@
 	grid-template-rows: 6rem 1fr 3.5em;
 }
 
+// General styling that applies to every page's content
 main {
 	@apply w-full h-full flex justify-center items-center;
 }
 
+// The nav bar links
 .link {
 	@apply flex justify-center w-36 hover:transition-colors cursor-pointer;
 
 	a {
-		@apply p-4;
+		@apply p-4 w-full h-full text-center;
 	}
 
 	&.active,
 	&:hover {
-		@apply bg-purple-500 text-white;
-		mask: url(../images/trapezoid.png);
-		mask-size: 100% 100%;
+		@apply text-white;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 212 134'%3E%3Cpath id='trapezoid' fill='rgb(139, 92, 246)' d='M 56.00,0.15 C 56.00,0.15 88.00,0.15 88.00,0.15 88.00,0.15 146.00,0.15 146.00,0.15 155.08,0.01 163.75,1.66 169.01,10.00 169.01,10.00 179.68,37.00 179.68,37.00 179.68,37.00 196.42,81.00 196.42,81.00 196.42,81.00 206.00,106.00 206.00,106.00 207.54,109.87 211.41,119.31 211.81,123.00 212.98,133.59 205.10,133.99 197.00,134.00 197.00,134.00 16.00,134.00 16.00,134.00 9.65,133.99 0.84,134.29 0.12,126.00 -0.42,119.69 6.94,102.86 9.34,96.00 9.34,96.00 34.81,26.00 34.81,26.00 39.75,12.95 40.38,3.98 56.00,0.15 Z' /%3E%3C/svg%3E%0A");
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
 	}
 }

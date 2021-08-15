@@ -1,6 +1,42 @@
 import { createSlice, combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 
+// Define the shape of the store
+interface User {
+	userID: number;
+	userName: string;
+	userAvatar: string;
+}
+
+interface Answer {
+	/** ID of the user that subbmitted this answer */
+	answererID: number;
+	/** The user's choice */
+	choice: number;
+}
+
+interface Question {
+	/** Unique identifier for a question, helps with querying */
+	questionID: number;
+	/** the first option */
+	choiceA: string;
+	/** the second option */
+	choiceB: string;
+	/** the ID of the user that asked this */
+	askerID: number;
+	/** a list of {@link Answer} objects */
+	answers: Answer[];
+}
+
+interface Store {
+	questions: Array<Question>;
+	users: Array<User>;
+}
+
+// This is only for type checking
+export type RootState = Store;
+
+// create store slices
 const questionSlice = createSlice({
 	name: 'questions',
 	initialState: [
@@ -49,11 +85,13 @@ const userSlice = createSlice({
 
 export const { addUser } = userSlice.actions;
 
+// combine question and user reducers into one "master" reducer
 const reducer = combineReducers({
 	users: userSlice.reducer,
 	questions: questionSlice.reducer
 });
 
+// set up the actual Redux store
 export const store = configureStore({
 	reducer,
 	middleware: [createLogger()]
